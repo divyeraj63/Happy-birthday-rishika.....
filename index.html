@@ -251,7 +251,186 @@ document.getElementById("intro").style.animation =
 
 setTimeout(()=>{
 
-// PART 3 STARTS HERE
+const photos = [
+"images/IMG_20260209_022846_743.jpg",
+"images/IMG_20260306_131357.jpg",
+"images/IMG_20260313_142029.jpg",
+"images/Snapchat-1167328306.jpg",
+"images/Snapchat-1295900553.jpg",
+"images/Snapchat-1365882627.jpg",
+"images/Snapchat-1937527266.jpg",
+"images/Snapchat-4187766.jpg",
+"images/Snapchat-768854161.jpg",
+"images/Snapchat-921087093.jpg",
+"images/Snapchat-961176038.jpg"
+];
+
+const captions = [
+"Our beautiful memories ❤️",
+"You make every smile special ✨",
+"Every picture tells our story 📸",
+"Road No. 3 ❤️",
+"Every laugh with you matters 😂",
+"Study sessions together 📚",
+"You'll always be my favourite ❤️",
+"Happy Birthday Gullumullu 🎂",
+"My happiest memories 💕",
+"Forever cheering for you 🌹",
+"I Love You ❤️"
+];
+
+let slide = 0;
+
+document.body.innerHTML = `
+
+<div id="progress">
+<div id="bar"></div>
+</div>
+
+<div id="slideshow">
+
+<img id="photo">
+
+<h2 id="caption"></h2>
+
+</div>
+
+<style>
+
+#progress{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:6px;
+background:#222;
+z-index:100;
+}
+
+#bar{
+width:0%;
+height:100%;
+background:#ff4d6d;
+transition:8s linear;
+}
+
+#slideshow{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:black;
+}
+
+#photo{
+width:85%;
+max-width:420px;
+border-radius:25px;
+box-shadow:
+0 0 30px rgba(255,255,255,.25),
+0 0 60px rgba(255,77,109,.35);
+transition:2s;
+animation:kenburns 8s linear infinite alternate;
+}
+
+@keyframes kenburns{
+
+from{
+transform:scale(1) rotate(0deg);
+}
+
+to{
+transform:scale(1.12) rotate(1deg);
+}
+
+}
+#caption{
+margin-top:25px;
+font-size:24px;
+text-align:center;
+padding:15px;
+color:white;
+text-shadow:
+0 0 10px #ff4d6d,
+0 0 20px #ff4d6d,
+0 0 40px #ff4d6d;
+animation:captionGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes captionGlow{
+from{
+text-shadow:0 0 10px #ff4d6d;
+}
+to{
+text-shadow:0 0 35px #ff4d6d;
+}
+}
+
+.fade{
+opacity:0;
+transform:scale(.95);
+}
+
+</style>
+
+`;
+
+showSlide();
+
+function showSlide(){
+
+const img=document.getElementById("photo");
+const cap=document.getElementById("caption");
+const bar=document.getElementById("bar");
+
+img.classList.add("fade");
+cap.classList.add("fade");
+
+bar.style.transition="none";
+bar.style.width="0%";
+
+setTimeout(()=>{
+
+img.src=photos[slide];
+cap.innerHTML=captions[slide];
+
+img.classList.remove("fade");
+cap.classList.remove("fade");
+
+bar.style.transition="8s linear";
+bar.style.width="100%";
+
+},300);
+
+setTimeout(()=>{
+
+slide++;
+
+if(slide<photos.length){
+
+showSlide();
+
+}else{
+
+// Premium ending transition
+document.getElementById("slideshow").style.animation="fadeOut 2s forwards";
+
+setTimeout(()=>{
+
+showLovePage();
+
+},2000);
+
+}
+
+},8000);
+
+  }
 
 },2000);
 
@@ -297,7 +476,457 @@ h.remove();
 
 setInterval(createHeart,400);
 
-</script>
+// Floating Hearts
+function createHeart(){
+
+let heart=document.createElement("div");
+
+heart.innerHTML="❤️";
+
+heart.style.position="fixed";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top="100vh";
+heart.style.fontSize=(20+Math.random()*20)+"px";
+heart.style.pointerEvents="none";
+heart.style.transition="8s linear";
+heart.style.zIndex="999";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.style.transform="translateY(-120vh)";
+heart.style.opacity="0";
+},100);
+
+setTimeout(()=>{
+heart.remove();
+},8000);
+
+}
+
+setInterval(createHeart,800);
+
+
+// Falling Roses
+function createRose(){
+
+let rose=document.createElement("div");
+
+rose.innerHTML="🌹";
+
+rose.style.position="fixed";
+rose.style.left=Math.random()*100+"vw";
+rose.style.top="-40px";
+rose.style.fontSize="28px";
+rose.style.transition="10s linear";
+rose.style.pointerEvents="none";
+rose.style.zIndex="999";
+
+document.body.appendChild(rose);
+
+setTimeout(()=>{
+rose.style.transform="translateY(120vh) rotate(360deg)";
+},100);
+
+setTimeout(()=>{
+rose.remove();
+},10000);
+
+}
+
+setInterval(createRose,2500);
+
+
+// Zoom Effect
+setInterval(()=>{
+
+let img=document.getElementById("photo");
+
+if(img){
+
+img.animate([
+
+{transform:"scale(1)"},
+
+{transform:"scale(1.08)"}
+
+],{
+
+duration:8000,
+
+fill:"forwards"
+
+});
+
+}
+
+},8000); // ✨ Sparkles
+
+function createSparkle(){
+
+let s=document.createElement("div");
+
+s.innerHTML="✨";
+
+s.style.position="fixed";
+
+s.style.left=Math.random()*100+"vw";
+
+s.style.top=Math.random()*100+"vh";
+
+s.style.fontSize=(12+Math.random()*18)+"px";
+
+s.style.pointerEvents="none";
+
+s.style.opacity=".9";
+
+s.style.transition="2s linear";
+
+document.body.appendChild(s);
+
+setTimeout(()=>{
+
+s.style.transform="scale(2)";
+
+s.style.opacity="0";
+
+},100);
+
+setTimeout(()=>{
+
+s.remove();
+
+},2200);
+
+}
+
+setInterval(createSparkle,350);
+
+
+// ⭐ Stars
+
+function createStar(){
+
+let star=document.createElement("div");
+
+star.innerHTML="⭐";
+
+star.style.position="fixed";
+
+star.style.left=Math.random()*100+"vw";
+
+star.style.top="-20px";
+
+star.style.fontSize="18px";
+
+star.style.transition="7s linear";
+
+star.style.pointerEvents="none";
+
+document.body.appendChild(star);
+
+setTimeout(()=>{
+
+star.style.transform="translateY(120vh) rotate(360deg)";
+
+},100);
+
+setTimeout(()=>{
+
+star.remove();
+
+},7000);
+
+}
+
+setInterval(createStar,1200); // 🌌 Galaxy Particles
+
+function createGalaxy(){
+
+let g=document.createElement("div");
+
+let items=["✨","💫","⭐","🌟"];
+
+g.innerHTML=items[Math.floor(Math.random()*items.length)];
+
+g.style.position="fixed";
+
+g.style.left=Math.random()*100+"vw";
+
+g.style.top=Math.random()*100+"vh";
+
+g.style.fontSize=(10+Math.random()*20)+"px";
+
+g.style.opacity=".7";
+
+g.style.pointerEvents="none";
+
+g.style.transition="5s linear";
+
+document.body.appendChild(g);
+
+setTimeout(()=>{
+
+g.style.transform="scale(2) rotate(360deg)";
+
+g.style.opacity="0";
+
+},100);
+
+setTimeout(()=>{
+
+g.remove();
+
+},5000);
+
+}
+
+setInterval(createGalaxy,250);
+
+
+
+// ❤️ Pulse animation
+
+setInterval(()=>{
+
+let img=document.getElementById("photo");
+
+if(img){
+
+img.animate([
+
+{boxShadow:"0 0 20px #ff4d6d"},
+
+{boxShadow:"0 0 70px #ff4d6d"},
+
+{boxShadow:"0 0 20px #ff4d6d"}
+
+],{
+
+duration:3000
+
+});
+
+}
+
+},3000); function cakePage(){
+
+document.body.innerHTML=`
+
+<div style="
+background:black;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+color:white;
+text-align:center;
+overflow:hidden;
+">
+
+<h1>🎂 Happy Birthday Gullumullu ❤️</h1>
+
+<p>Tap every candle to blow it out ✨</p>
+
+<div style="font-size:120px;">🎂</div>
+
+<div id="candles">
+
+<span class="candle" onclick="blow(this)">🕯️</span>
+<span class="candle" onclick="blow(this)">🕯️</span>
+<span class="candle" onclick="blow(this)">🕯️</span>
+<span class="candle" onclick="blow(this)">🕯️</span>
+<span class="candle" onclick="blow(this)">🕯️</span>
+
+</div>
+
+<h2 id="wish"></h2>
+
+<div id="letter"></div>
+
+</div>
+
+`;
+
+  } let blown=0;
+
+function blow(c){
+
+if(c.innerHTML=="💨") return;
+
+c.innerHTML="💨";
+
+blown++;
+
+createFirework();
+
+if(blown==5){
+
+document.getElementById("wish").innerHTML=
+"🎉 Make A Wish ❤️";
+
+typeLetter();
+
+}
+
+  } function typeLetter(){
+
+const msg=`💌
+
+Happy Birthday Gullumullu ❤️
+
+Thank you for every memory,
+every laugh,
+every fight,
+every smile.
+
+I hope all your dreams come true.
+
+Stay happy forever.
+
+Love,
+Your Baccha 🙈`;
+
+let i=0;
+
+let box=document.getElementById("letter");
+
+let t=setInterval(()=>{
+
+box.innerHTML+=msg.charAt(i);
+
+i++;
+
+if(i>=msg.length){
+
+clearInterval(t);
+
+box.innerHTML+=`
+
+<br><br>
+
+<button onclick="giftBox()">
+🎁 Open Your Gift
+</button>
+
+`;
+
+}
+
+},40);
+
+} function giftBox(){
+
+document.body.innerHTML=`
+
+<div style="
+background:black;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+color:white;
+text-align:center;
+overflow:hidden;
+">
+
+<h1>🎁 A Gift For Gullumullu ❤️</h1>
+
+<div id="gift"
+onclick="openGiftBox()"
+style="
+font-size:140px;
+cursor:pointer;
+animation:bounce 1.5s infinite;
+">
+🎁
+</div>
+
+<p>Tap the gift...</p>
+
+<style>
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+}
+
+</style>
+
+</div>
+
+`;
+
+}
+
+function openGiftBox(){
+
+for(let i=0;i<40;i++){
+
+setTimeout(createFirework,i*120);
+
+}
+
+for(let i=0;i<25;i++){
+
+setTimeout(createBalloon,i*200);
+
+}
+
+document.body.innerHTML=`
+
+<div style="
+background:black;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+color:white;
+text-align:center;
+padding:30px;
+">
+
+<h1>🎉 Surprise ❤️</h1>
+
+<h2>👑</h2>
+
+<p style="
+font-size:24px;
+line-height:2;
+">
+
+Happy Birthday My Queen ❤️
+
+You deserve
+
+✨ Happiness
+
+✨ Success
+
+✨ Endless Smiles
+
+✨ And all the love in the world.
+
+Forever,
+
+Your Baccha 🙈
+
+</p>
+
+<button onclick="showLovePage()">
+
+❤️ Back
+
+</button>
+
+</div>
+
+`;
+
+  } </script>
 
 </body>
 </html>
